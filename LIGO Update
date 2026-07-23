@@ -1,0 +1,54 @@
+=======================================
+   UPGRADED METRIC & ANOMALY FILTER
+========================================
+Config    : Anomaly Veto Matrix
+Module    : LIGO Glitch Eraser Loop
+Baseline  : O4 Network Manifold
+Security  : 17 U.S.C. § 102 Compliant
+========================================
+
+1. REAL-TIME DATA PURIFICATION FLOW
+----------------------------------------
+
+     [RAW DETECTOR STREAMS]
+                │
+                ▼
+ ┌──────────────────────────┐
+ │ MULTI-SCALE SENSITIZATION│ ──► Checks 0.5s to 4.0s Windows
+ └──────────────────────────┘
+                │
+                ▼
+ ┌──────────────────────────┐
+ │ DOMAIN SHIFT DEFENSE(DSD)│ ──► Isolates Local Terrestrial Noise
+ └──────────────────────────┘
+                │
+        ┌───────┴───────┐
+        ▼               ▼
+ [GLITCH SURVIVED?]  [GLITCH CAPTURED]
+        │               │
+        │ No            │ Yes
+        ▼               ▼
+ ┌──────────┐     ┌──────────┐
+ │ CLEANED  │     │ HARD     │
+ │ MATRIX   │     │ CAT1/2   │
+ │ PIPELINE │     │ VETO     │
+ └──────────┘     └──────────┘
+        │               │
+        ▼               ▼
+ ┌──────────┐     ┌──────────┐
+ │ TO CORE  │     │ DAMPING  │
+ │ LAGO/LISA│     │ SYSTEM   │
+ │ CONTROL  │     │ COUPLING │
+ └──────────┘     └──────────┘
+
+TECHNICAL LOGIC:
+The veto loop applies localized Category 
+1 & 2 flags. This stops micro-seismic 
+aftershocks or mirror heat distortions 
+from faking structural p-values.
+
+----------------------------------------
+2. INTEGRATED DATA PURIFICATION CODE
+----------------------------------------
+File Reference: ligo_cleaner.py
+Updates       : Multi-Scale Window Vector
