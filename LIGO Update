@@ -52,3 +52,64 @@ from faking structural p-values.
 ----------------------------------------
 File Reference: ligo_cleaner.py
 Updates       : Multi-Scale Window Vector
+
+
+import numpy as np
+import scipy.stats as stats
+
+def apply_domain_shift_defense(
+    raw_strain, sample_rate=4096
+):
+    """
+    Applies multi-scale geometric vetoes
+    to strip out non-stationary noise shifts.
+    """
+    # Define multi-scale scan blocks
+    # 0.5s up to 4.0s
+    window_sizes = [2048, 8192, 16384]
+    veto_mask = np.zeros_like(raw_strain)
+    
+    for size in window_sizes:
+        # Compute dynamic local energy variance
+        rolling_var = np.array([
+            np.var(raw_strain[i:i+size]) 
+            for i in range(
+                0, len(raw_strain) - size, size
+            )
+        ])
+        
+        # Calculate dynamic cutoff threshold
+        median_noise = np.median(rolling_var)
+        threshold = median_noise * 4.5
+        
+        # Flag structural glitch clusters
+        for idx, var in enumerate(rolling_var):
+            if var > threshold:
+                start = idx * size
+                end = start + size
+                veto_mask[start:end] = 1
+                
+    # Nullify transient glitches
+    clean_strain = np.where(
+        veto_mask == 1, 0.0, raw_strain
+    )
+    return clean_strain, veto_mask
+
+if __name__ == "__main__":
+    print("Initializing LIGO Anomaly Grid...")
+    
+    # Simulate a raw O4 strain segment
+    # Composed of continuous white noise 
+    fake_strain = np.random.normal(0, 1, 16384)
+    
+    # Inject a local transient artifact (A Glitch)
+    fake_strain[4000:4100] += 55.0
+    
+    # Run the purification engine
+    cleaned, mask = apply_domain_shift_defense(
+        fake_strain
+    )
+    
+    print(f"Glitch Indices Detected : {np.sum(mask)}")
+    print(f"Residual Spike Maximum  : {np.max(cleaned):.2f}")
+    print("\nStatus: Data Veto Engine Active.")
