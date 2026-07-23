@@ -1,6 +1,6 @@
 # Technical Specification: Panmatrix Coupling Verification
 **File Ref:** EX-99.2  
-**Author:** [Your Name/Entity]  
+**Author:** [Kameron Knowlton]
 
 ## 1. Unified Architecture Spec
 * **JWST Mapping:** Relational Time Vector Vector ($t_R$).
