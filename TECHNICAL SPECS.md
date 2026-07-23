@@ -2,8 +2,8 @@
  PANMATRIX MULTI-BAND TELEMETRY SPEC
 ========================================
 Doc Class : Technical Verification
-Author    : [Your Name/Entity]
-Registry  : © 2026 [Your Name/Entity]
+Author    : [Kameron Knowlton
+Registry  : © 2026 [Kameron Knowlton]
 Legal     : 17 U.S.C. § 102 Locked
 ========================================
 
