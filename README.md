@@ -1,5 +1,5 @@
-Kameron Knowlton Panmatrixlabs@proton.me
-
+Kameron Knowlton (c 2026) Panmatrixlabs@proton.me
+Licenced under the First-Principles Humanity Commons License Version 3.2 (c 2026 Kameron Knowlton)
 
 # Multi-Band-Panmatrix-Proof-Unified-LIGO-LISA-JWST-Telemetry-Spec
 Multi-Band Panmatrix Proof: Unified LIGO-LISA-JWST Telemetry Spec
